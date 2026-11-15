@@ -45,6 +45,9 @@
     .seccion { max-width: 480px; margin: 22px auto 0; }
     .seccion h2 { font-size: .8rem; letter-spacing: .15em; text-transform: uppercase; color: var(--dorado); margin-bottom: 6px; }
     .historial li { cursor: default; font-size: .95rem; }
+    .selector { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex: 0 0 44%; }
+    .selector button { flex: 1; font-size: 1.4rem; padding: 10px 0; }
+    .selector span { min-width: 2ch; text-align: center; font-size: 1.8rem; font-weight: 800; }
     .aviso { font-size: .8rem; color: #998; margin-top: 10px; text-align: center; }
   </style>
 </head>
@@ -71,8 +74,12 @@
     <div class="r-detalle" id="rDetalle"></div>
     <div class="r-cuenta" id="rCuenta"></div>
     <div class="fila" id="rBotones">
-      <button class="b-verde" id="entra1">+1 entra</button>
-      <button class="b-verde" id="entranTodos"></button>
+      <div class="selector">
+        <button class="b-gris" id="menos" aria-label="Uno menos">−</button>
+        <span id="cantidad">1</span>
+        <button class="b-gris" id="mas" aria-label="Uno más">+</button>
+      </div>
+      <button class="b-verde" id="confirmar"></button>
     </div>
     <div class="fila">
       <button class="b-gris" id="corregir">−1 corregir</button>
@@ -116,7 +123,7 @@
 
     function totales() {
       let t = 0, e = 0;
-      for (const [h, inv] of Object.entries(invitados)) { e += inv.limite || 0; t += dentro(h); }
+      for (const [h, inv] of Object.entries(invitados)) { if (inv.prueba) continue; e += inv.limite || 0; t += dentro(h); }
       $("#totalDentro").textContent = t;
       $("#totalEsperado").textContent = e;
     }
@@ -154,8 +161,10 @@
         $("#rDetalle").textContent = (familia ? "Familia · límite en puerta: " : "Invitación para ") + lim + (lim === 1 ? " persona" : " personas");
         $("#rCuenta").textContent = faltan > 0 ? `Han entrado ${d} de ${lim}` : `YA ENTRARON ${d} de ${lim}`;
         $("#rBotones").hidden = faltan === 0; $("#corregir").hidden = d === 0;
-        $("#entranTodos").hidden = faltan < 2;
-        $("#entranTodos").textContent = `Entran ${faltan}`;
+        // Invitación normal: por defecto entran todos los que faltan. Familia: de uno en uno (llegan por partes).
+        cantidad = familia ? 1 : faltan;
+        pintarCantidad(faltan);
+        if (inv.prueba) $("#rDetalle").textContent += " · PRUEBA (no cuenta)";
       }
       box.scrollIntoView({ behavior: "smooth", block: "center" });
     }
@@ -170,8 +179,16 @@
       estado.log.push({ h: actual, nombre: nombreDe(inv), n: real, hora: new Date().toLocaleTimeString("es-BO", { hour: "2-digit", minute: "2-digit" }) });
       guardar(); totales(); historial(); mostrar(actual);
     }
-    $("#entra1").onclick = () => registrar(1);
-    $("#entranTodos").onclick = () => { const inv = invitados[actual]; registrar((inv.limite || 0) - dentro(actual)); };
+    let cantidad = 1;
+    const faltanDe = (h) => Math.max((invitados[h].limite || 0) - dentro(h), 0);
+    function pintarCantidad(faltan) {
+      cantidad = Math.min(Math.max(cantidad, 1), faltan);
+      $("#cantidad").textContent = cantidad;
+      $("#confirmar").textContent = cantidad === 1 ? "✓ Entra 1" : `✓ Entran ${cantidad}`;
+    }
+    $("#menos").onclick = () => { cantidad--; pintarCantidad(faltanDe(actual)); };
+    $("#mas").onclick = () => { cantidad++; pintarCantidad(faltanDe(actual)); };
+    $("#confirmar").onclick = () => registrar(cantidad);
     $("#corregir").onclick = () => registrar(-1);
     $("#siguiente").onclick = () => { $("#resultado").hidden = true; actual = null; window.scrollTo({ top: 0, behavior: "smooth" }); iniciar(); };
 

@@ -1,4 +1,10 @@
 {
+ "4e6bfb9d8b037d83f2b61e58": {
+  "nombre": "Invitación de prueba",
+  "pases": 2,
+  "limite": 2,
+  "prueba": true
+ },
  "b2e6a949f446ca09ef186c2e": {
   "nombre": "Abril Oropeza",
   "pases": 2,
@@ -124,7 +130,7 @@
   "pases": 2,
   "limite": 2
  },
- "5d008c9e71b3653d41279330": {
+ "3e192d3946bf496023f6a248": {
   "nombre": "Camila",
   "pases": 2,
   "limite": 2
@@ -144,7 +150,7 @@
   "pases": 2,
   "limite": 2
  },
- "3e192d3946bf496023f6a248": {
+ "0045ad174d43f03822814d38": {
   "nombre": "Camila",
   "pases": 2,
   "limite": 2
