@@ -213,6 +213,21 @@
     </section>
 
 
+    <!-- Pase de entrada (solo si el enlace es válido) -->
+    <section class="seccion pase" id="seccionPase" hidden>
+      <p class="etiqueta">Tu pase de entrada</p>
+      <div class="pase-tarjeta">
+        <svg class="esq e1"><use href="#esquina"/></svg><svg class="esq e2"><use href="#esquina"/></svg>
+        <svg class="esq e3"><use href="#esquina"/></svg><svg class="esq e4"><use href="#esquina"/></svg>
+        <span class="lacre">S</span>
+        <p class="pase-nombre" id="paseNombre"></p>
+        <p class="pase-cupo" id="paseCupo"></p>
+        <div class="pase-qr" id="paseQR" aria-label="Código QR de tu pase"></div>
+        <p class="pase-nota">Pase personal e intransferible.<br>Muéstralo en la entrada 🎭</p>
+      </div>
+      <p class="texto pase-consejo">Haz una captura de pantalla para tenerlo a mano.</p>
+    </section>
+
     <!-- 6. Vestimenta -->
     <section class="seccion vestimenta tarjeta-seccion">
       <svg class="esq e1"><use href="#esquina"/></svg><svg class="esq e2"><use href="#esquina"/></svg>
@@ -252,6 +267,7 @@
   </button>
 
   <audio id="audio" src="assets/musica.mp3" preload="auto" loop></audio>
+  <script src="assets/vendor/qrcode.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

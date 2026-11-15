@@ -57,21 +57,40 @@ const CONFIG = {
   else { album.textContent = "Álbum disponible muy pronto"; album.classList.add("inactivo"); }
 
   // --- Invitado (?i=codigo) ---
+  // invitados.json solo guarda una "huella" de cada código, así nadie puede sacar los códigos.
   const codigo = (new URLSearchParams(location.search).get("i") || "").trim().toLowerCase();
   const nombreEl = $("#tarjetaNombre");
   const pasesEl = $("#tarjetaPases");
   nombreEl.textContent = CONFIG.invitadoPorDefecto;
-  if (codigo) {
-    fetch("invitados.json", { cache: "no-cache" })
-      .then((r) => (r.ok ? r.json() : {}))
-      .then((lista) => {
-        const inv = lista[codigo];
+  async function huella(txt) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(txt));
+    return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 24);
+  }
+  if (codigo && window.crypto && crypto.subtle) {
+    Promise.all([fetch("invitados.json", { cache: "no-cache" }).then((r) => (r.ok ? r.json() : {})), huella(codigo)])
+      .then(([lista, h]) => {
+        const inv = lista[h];
         if (!inv) return;
-        nombreEl.textContent = inv.nombre || CONFIG.invitadoPorDefecto;
+        const nombre = inv.nombre || CONFIG.invitadoPorDefecto;
         const n = Number(inv.pases) || 0;
-        pasesEl.textContent = n ? `${n} ${n === 1 ? "persona" : "personas"}` : "";
+        const cupo = n ? `${n} ${n === 1 ? "persona" : "personas"}` : "";
+        nombreEl.textContent = nombre;
+        pasesEl.textContent = cupo;
+        mostrarPase(nombre, n);
       })
       .catch(() => {});
+  }
+
+  // --- Pase de entrada con QR ---
+  function mostrarPase(nombre, n) {
+    if (typeof qrcode !== "function") return;
+    $("#paseNombre").textContent = nombre;
+    $("#paseCupo").textContent = n ? `Válido para ${n} ${n === 1 ? "persona" : "personas"}` : "";
+    const qr = qrcode(0, "M");
+    qr.addData(location.origin + location.pathname + "?i=" + codigo);
+    qr.make();
+    $("#paseQR").innerHTML = qr.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
+    $("#seccionPase").hidden = false;
   }
 
   // --- Música ---

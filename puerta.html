@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Puerta · XV de Scarlett</title>
+  <meta name="theme-color" content="#120A0B">
+  <link rel="icon" href="assets/antifaz.svg" type="image/svg+xml">
+  <style>
+    :root { --burdeos:#6B0F1A; --dorado:#C9A24A; --dorado-claro:#F3DD9B; --negro:#120A0B; --marfil:#F5EBDD; --verde:#1F7A4A; --rojo:#B3261E; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    [hidden] { display: none !important; }
+    body { min-height: 100svh; background: var(--negro); color: var(--marfil); font: 17px/1.4 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; padding: 12px 16px 40px; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
+    h1 { font-size: 1.1rem; color: var(--dorado-claro); font-weight: 700; }
+    .total { text-align: right; font-size: .85rem; color: #cbb; }
+    .total b { display: block; font-size: 1.4rem; color: var(--dorado-claro); }
+    .camara { position: relative; width: 100%; max-width: 480px; margin: 0 auto; aspect-ratio: 1; background: #000; border-radius: 14px; overflow: hidden; border: 2px solid var(--dorado); }
+    video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .mira { position: absolute; inset: 18%; border: 3px solid rgba(243,221,155,.85); border-radius: 12px; box-shadow: 0 0 0 999px rgba(0,0,0,.35); pointer-events: none; }
+    .camara-off { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; color: #ccc; }
+    button { font: inherit; border: 0; border-radius: 12px; padding: 14px 16px; font-weight: 700; cursor: pointer; }
+    .b-oro { background: linear-gradient(180deg, var(--dorado-claro), var(--dorado)); color: var(--negro); }
+    .b-verde { background: var(--verde); color: #fff; }
+    .b-gris { background: #2a2224; color: var(--marfil); }
+    .ancho { width: 100%; }
+    .fila { display: flex; gap: 10px; margin-top: 10px; }
+    .fila > * { flex: 1; }
+    .resultado { margin: 14px auto 0; max-width: 480px; border-radius: 16px; padding: 18px; text-align: center; border: 3px solid transparent; }
+    .resultado.ok { background: #10301f; border-color: var(--verde); }
+    .resultado.lleno { background: #3a0f0d; border-color: var(--rojo); }
+    .resultado.mal { background: #2a2224; border-color: #777; }
+    .r-icono { font-size: 2.6rem; line-height: 1; }
+    .r-nombre { font-size: 1.6rem; font-weight: 800; margin: 6px 0 2px; color: #fff; }
+    .r-detalle { font-size: 1.05rem; color: #ddd; }
+    .r-cuenta { font-size: 2.4rem; font-weight: 800; margin: 8px 0 2px; }
+    .resultado.ok .r-cuenta { color: #7CE0A6; }
+    .resultado.lleno .r-cuenta { color: #FF8A80; }
+    .buscar { max-width: 480px; margin: 18px auto 0; }
+    input { width: 100%; font: inherit; padding: 13px 14px; border-radius: 12px; border: 1px solid #554; background: #1d1618; color: #fff; }
+    .lista { list-style: none; margin-top: 6px; }
+    .lista li { padding: 12px 10px; border-bottom: 1px solid #332; display: flex; justify-content: space-between; gap: 10px; cursor: pointer; }
+    .lista li span:last-child { color: #bba; white-space: nowrap; }
+    .seccion { max-width: 480px; margin: 22px auto 0; }
+    .seccion h2 { font-size: .8rem; letter-spacing: .15em; text-transform: uppercase; color: var(--dorado); margin-bottom: 6px; }
+    .historial li { cursor: default; font-size: .95rem; }
+    .aviso { font-size: .8rem; color: #998; margin-top: 10px; text-align: center; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎭 Puerta · XV de Scarlett</h1>
+    <div class="total">Han entrado<b id="totalDentro">0</b>de <span id="totalEsperado">0</span></div>
+  </header>
+
+  <div class="camara">
+    <video id="video" playsinline muted></video>
+    <div class="mira" id="mira" hidden></div>
+    <div class="camara-off" id="camaraOff">
+      <div>
+        <p style="margin-bottom:14px">Escanea el QR del pase de cada invitado</p>
+        <button class="b-oro" id="activar">📷 Activar cámara</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="resultado" id="resultado" hidden>
+    <div class="r-icono" id="rIcono"></div>
+    <div class="r-nombre" id="rNombre"></div>
+    <div class="r-detalle" id="rDetalle"></div>
+    <div class="r-cuenta" id="rCuenta"></div>
+    <div class="fila" id="rBotones">
+      <button class="b-verde" id="entra1">+1 entra</button>
+      <button class="b-verde" id="entranTodos"></button>
+    </div>
+    <div class="fila">
+      <button class="b-gris" id="corregir">−1 corregir</button>
+      <button class="b-oro" id="siguiente">Escanear siguiente</button>
+    </div>
+  </div>
+
+  <div class="buscar">
+    <input id="buscar" type="search" placeholder="🔎 Buscar por nombre (si no traen el QR)" autocomplete="off">
+    <ul class="lista" id="resultados"></ul>
+  </div>
+
+  <div class="seccion">
+    <h2>Últimas entradas</h2>
+    <ul class="lista historial" id="historial"></ul>
+  </div>
+
+  <div class="seccion">
+    <button class="b-gris ancho" id="exportar">⬇️ Descargar registro (CSV)</button>
+    <p class="aviso">El registro se guarda en este móvil. Usa siempre este mismo móvil y navegador, y no borres los datos del navegador hasta que acabe la fiesta.</p>
+  </div>
+
+  <script src="assets/vendor/jsQR.min.js"></script>
+  <script>
+  (function () {
+    const $ = (s) => document.querySelector(s);
+    const CLAVE = "xv-scarlett-puerta";
+    let invitados = {};          // huella → {nombre, pases, limite}
+    let estado = { dentro: {}, log: [] };
+    try { estado = JSON.parse(localStorage.getItem(CLAVE)) || estado; } catch (e) {}
+    const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) {} };
+    let actual = null;           // huella del invitado mostrado
+    let escaneando = false, stream = null;
+
+    async function huella(txt) {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(txt));
+      return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("").slice(0, 24);
+    }
+    const nombreDe = (inv) => inv.nombre || "Invitado especial";
+    const dentro = (h) => estado.dentro[h] || 0;
+
+    function totales() {
+      let t = 0, e = 0;
+      for (const [h, inv] of Object.entries(invitados)) { e += inv.limite || 0; t += dentro(h); }
+      $("#totalDentro").textContent = t;
+      $("#totalEsperado").textContent = e;
+    }
+
+    function historial() {
+      const ul = $("#historial"); ul.innerHTML = "";
+      estado.log.slice(-12).reverse().forEach((r) => {
+        const li = document.createElement("li");
+        li.innerHTML = "<span></span><span></span>";
+        li.children[0].textContent = (r.n > 0 ? "✅ " : "↩️ ") + r.nombre;
+        li.children[1].textContent = (r.n > 0 ? "+" : "") + r.n + " · " + r.hora;
+        ul.appendChild(li);
+      });
+    }
+
+    function mostrar(h) {
+      actual = h;
+      const inv = invitados[h];
+      const box = $("#resultado");
+      box.hidden = false;
+      box.className = "resultado";
+      if (!inv) {
+        box.classList.add("mal");
+        $("#rIcono").textContent = "❌";
+        $("#rNombre").textContent = "Pase no válido";
+        $("#rDetalle").textContent = "Este código no es de ninguna invitación.";
+        $("#rCuenta").textContent = "";
+        $("#rBotones").hidden = true; $("#corregir").hidden = true;
+      } else {
+        const lim = inv.limite || 0, d = dentro(h), faltan = Math.max(lim - d, 0);
+        const familia = !inv.pases;
+        box.classList.add(faltan > 0 ? "ok" : "lleno");
+        $("#rIcono").textContent = faltan > 0 ? "✅" : "⛔";
+        $("#rNombre").textContent = nombreDe(inv);
+        $("#rDetalle").textContent = (familia ? "Familia · límite en puerta: " : "Invitación para ") + lim + (lim === 1 ? " persona" : " personas");
+        $("#rCuenta").textContent = faltan > 0 ? `Han entrado ${d} de ${lim}` : `YA ENTRARON ${d} de ${lim}`;
+        $("#rBotones").hidden = faltan === 0; $("#corregir").hidden = d === 0;
+        $("#entranTodos").hidden = faltan < 2;
+        $("#entranTodos").textContent = `Entran ${faltan}`;
+      }
+      box.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function registrar(n) {
+      const inv = invitados[actual]; if (!inv) return;
+      const lim = inv.limite || 0;
+      const nuevo = Math.min(Math.max(dentro(actual) + n, 0), lim);
+      const real = nuevo - dentro(actual);
+      if (!real) return;
+      estado.dentro[actual] = nuevo;
+      estado.log.push({ h: actual, nombre: nombreDe(inv), n: real, hora: new Date().toLocaleTimeString("es-BO", { hour: "2-digit", minute: "2-digit" }) });
+      guardar(); totales(); historial(); mostrar(actual);
+    }
+    $("#entra1").onclick = () => registrar(1);
+    $("#entranTodos").onclick = () => { const inv = invitados[actual]; registrar((inv.limite || 0) - dentro(actual)); };
+    $("#corregir").onclick = () => registrar(-1);
+    $("#siguiente").onclick = () => { $("#resultado").hidden = true; actual = null; window.scrollTo({ top: 0, behavior: "smooth" }); iniciar(); };
+
+    // --- Cámara y lectura del QR ---
+    const video = $("#video");
+    const lienzo = document.createElement("canvas");
+    const ctx = lienzo.getContext("2d", { willReadFrequently: true });
+    async function iniciar() {
+      if (escaneando) return;
+      try {
+        if (!stream) stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" }, audio: false });
+        video.srcObject = stream; await video.play();
+        $("#camaraOff").hidden = true; $("#mira").hidden = false;
+        escaneando = true; requestAnimationFrame(leer);
+      } catch (e) {
+        $("#camaraOff").hidden = false;
+        $("#camaraOff").querySelector("p").textContent = "No pude abrir la cámara. Revisa el permiso del navegador o usa la búsqueda por nombre.";
+      }
+    }
+    function leer() {
+      if (!escaneando) return;
+      if (video.readyState === video.HAVE_ENOUGH_DATA) {
+        const w = 480, hgt = Math.round(480 * video.videoHeight / video.videoWidth);
+        lienzo.width = w; lienzo.height = hgt;
+        ctx.drawImage(video, 0, 0, w, hgt);
+        const res = jsQR(ctx.getImageData(0, 0, w, hgt).data, w, hgt, { inversionAttempts: "dontInvert" });
+        if (res && res.data) { escaneando = false; leido(res.data); return; }
+      }
+      requestAnimationFrame(leer);
+    }
+    async function leido(texto) {
+      if (navigator.vibrate) navigator.vibrate(120);
+      let codigo = texto.trim();
+      try { codigo = new URL(texto).searchParams.get("i") || codigo; } catch (e) {}
+      mostrar(await huella(codigo.trim().toLowerCase()));
+    }
+    $("#activar").onclick = iniciar;
+
+    // --- Búsqueda por nombre ---
+    const norm = (t) => (t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+    $("#buscar").addEventListener("input", (e) => {
+      const q = norm(e.target.value.trim()), ul = $("#resultados");
+      ul.innerHTML = "";
+      if (q.length < 2) return;
+      Object.entries(invitados).filter(([, inv]) => inv.nombre && norm(inv.nombre).includes(q)).slice(0, 8).forEach(([h, inv]) => {
+        const li = document.createElement("li");
+        li.innerHTML = "<span></span><span></span>";
+        li.children[0].textContent = inv.nombre;
+        li.children[1].textContent = `${dentro(h)} / ${inv.limite}`;
+        li.onclick = () => { escaneando = false; ul.innerHTML = ""; e.target.value = ""; mostrar(h); };
+        ul.appendChild(li);
+      });
+    });
+
+    // --- Exportar ---
+    $("#exportar").onclick = () => {
+      const filas = [["Nombre", "Límite", "Han entrado"]];
+      for (const [h, inv] of Object.entries(invitados)) filas.push([nombreDe(inv), inv.limite, dentro(h)]);
+      filas.push([], ["Hora", "Nombre", "Movimiento"]);
+      estado.log.forEach((r) => filas.push([r.hora, r.nombre, r.n]));
+      const csv = "﻿" + filas.map((f) => f.map((v) => `"${String(v ?? "").replace(/"/g, '""')}"`).join(";")).join("\n");
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
+      a.download = "entradas-xv-scarlett.csv"; a.click();
+    };
+
+    fetch("invitados.json", { cache: "no-cache" }).then((r) => r.json()).then((d) => { invitados = d; totales(); historial(); });
+  })();
+  </script>
+</body>
+</html>

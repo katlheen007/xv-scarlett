@@ -282,6 +282,24 @@ body.cerrado { overflow: hidden; height: 100svh; }
 .linea .punto { width: 10px; height: 10px; transform: rotate(45deg); background: var(--dorado); justify-self: center; position: relative; left: 1px; box-shadow: 0 0 10px rgba(201,162,74,.7); }
 .linea .t { font-size: 1.2rem; padding-left: 8px; }
 
+/* Pase de entrada */
+.pase-tarjeta {
+  position: relative; max-width: 300px; margin: 6px auto 0; padding: 26px 22px 22px;
+  background: linear-gradient(160deg, #FFF8EC, var(--marfil) 60%, #E6D5B9); color: var(--negro);
+  border: 1.5px solid var(--dorado); outline: 1px solid var(--dorado); outline-offset: -8px;
+  border-radius: 4px; box-shadow: 0 16px 34px rgba(0,0,0,.55);
+}
+.pase-tarjeta .esq { width: 34px; height: 34px; }
+.pase-tarjeta .lacre { left: 50%; top: -17px; transform: translateX(-50%); }
+.pase-nombre { font-family: var(--gotica); font-weight: 600; font-size: 1.7rem; line-height: 1.15; color: var(--burdeos); }
+.pase-cupo { font-size: 1rem; font-weight: 600; letter-spacing: .06em; color: #5a4a3a; margin-top: 4px; }
+.pase-cupo:empty { display: none; }
+.pase-qr { width: 190px; margin: 14px auto 10px; padding: 8px; background: #fff; border-radius: 4px; }
+.pase-qr svg { display: block; width: 100%; height: auto; }
+.pase-qr svg path, .pase-qr svg rect[fill="black"] { fill: var(--negro); }
+.pase-nota { font-size: .95rem; font-style: italic; color: var(--burdeos); line-height: 1.35; }
+.pase-consejo { font-size: .95rem; margin-top: 14px; opacity: .75; }
+
 /* Vestimenta */
 .icono-antifaz { width: 140px; height: 70px; display: block; margin: 8px auto 12px; filter: drop-shadow(0 4px 10px rgba(201,162,74,.3)); }
 .icono-antifaz.pequeno { width: 80px; height: 40px; margin-top: 20px; }
