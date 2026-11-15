@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Scarlett · XV años</title>
+  <meta name="description" content="Baile de máscaras · Sábado 21 de noviembre de 2026 · Salón de Eventos Bonanza, El Alto">
+  <meta name="theme-color" content="#120A0B">
+
+  <!-- Vista previa al compartir por WhatsApp (se completan las URL al publicar) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://katlheen007.github.io/xv-scarlett/">
+  <meta property="og:title" content="Scarlett · XV años">
+  <meta property="og:description" content="Estás invitado a un baile de máscaras · Sábado 21 de noviembre, 17:00">
+  <meta property="og:image" content="https://katlheen007.github.io/xv-scarlett/assets/portada-whatsapp.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/antifaz.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ornamentos reutilizables -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="oro" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#F3DD9B"/>
+        <stop offset=".45" stop-color="#C9A24A"/>
+        <stop offset=".75" stop-color="#8E6A24"/>
+        <stop offset="1" stop-color="#E8C877"/>
+      </linearGradient>
+      <!-- Esquina de filigrana -->
+      <symbol id="esquina" viewBox="0 0 80 80">
+        <g fill="none" stroke="url(#oro)" stroke-width="1.6" stroke-linecap="round">
+          <path d="M4 76 V20 Q4 4 20 4 H76"/>
+          <path d="M10 70 V24 Q10 10 24 10 H70" stroke-width=".8"/>
+          <path d="M18 18 c10 0 16 6 16 14 c0 6 -5 9 -9 7 c-4 -2 -3 -8 2 -8"/>
+          <path d="M18 18 c0 10 6 16 14 16 c6 0 9 -5 7 -9 c-2 -4 -8 -3 -8 2"/>
+          <path d="M34 10 c6 4 14 4 22 0 M10 34 c4 6 4 14 0 22"/>
+          <circle cx="18" cy="18" r="2.4" fill="url(#oro)"/>
+          <circle cx="58" cy="9" r="1.5" fill="url(#oro)"/>
+          <circle cx="9" cy="58" r="1.5" fill="url(#oro)"/>
+        </g>
+      </symbol>
+      <!-- Separador -->
+      <symbol id="separador" viewBox="0 0 240 24">
+        <g fill="none" stroke="url(#oro)" stroke-width="1.2" stroke-linecap="round">
+          <path d="M4 12 H92"/><path d="M148 12 H236"/>
+          <path d="M92 12 c8 -10 18 -10 22 -2 c2 4 -2 8 -6 6"/>
+          <path d="M148 12 c-8 -10 -18 -10 -22 -2 c-2 4 2 8 6 6"/>
+          <path d="M92 12 c8 10 18 10 22 2"/><path d="M148 12 c-8 10 -18 10 -22 2"/>
+        </g>
+        <path d="M120 4 l5 8 -5 8 -5 -8z" fill="url(#oro)"/>
+      </symbol>
+      <!-- Antifaz -->
+      <symbol id="antifaz" viewBox="0 0 200 100">
+        <path fill="url(#oro)" fill-rule="evenodd" d="M100 34 C82 12 34 8 10 24 C2 46 16 78 48 80 C72 81 86 62 100 58 C114 62 128 81 152 80 C184 78 198 46 190 24 C166 8 118 12 100 34 Z
+          M36 46 C46 32 70 34 80 48 C70 60 46 60 36 46 Z
+          M164 46 C154 32 130 34 120 48 C130 60 154 60 164 46 Z"/>
+        <g fill="none" stroke="#7A5418" stroke-width="1.3" opacity=".7">
+          <path d="M20 30 C40 20 70 22 92 38"/><path d="M180 30 C160 20 130 22 108 38"/>
+          <path d="M24 64 C34 74 56 76 70 68"/><path d="M176 64 C166 74 144 76 130 68"/>
+        </g>
+        <g fill="none" stroke="url(#oro)" stroke-width="2" stroke-linecap="round">
+          <path d="M100 34 C96 22 100 10 110 6 C118 3 124 10 118 15 C114 18 108 14 112 10"/>
+          <path d="M100 34 C104 20 96 8 86 6 C78 5 74 13 81 16 C86 18 90 12 86 9"/>
+        </g>
+        <circle cx="100" cy="46" r="4" fill="#6B0F1A" stroke="url(#oro)" stroke-width="1.2"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <canvas id="particulas" aria-hidden="true"></canvas>
+
+  <!-- ============ PORTADA ============ -->
+  <section id="portada" aria-label="Portada">
+    <p class="portada-frase" data-texto="portadaFrase"></p>
+
+    <div class="escena">
+      <div class="libro" id="libro">
+        <!-- Interior (se ve al abrir) -->
+        <div class="libro-interior">
+          <svg class="esq e1"><use href="#esquina"/></svg>
+          <svg class="esq e2"><use href="#esquina"/></svg>
+          <p class="interior-texto">Bienvenidos<br>al baile</p>
+        </div>
+        <div class="libro-paginas"></div>
+
+        <!-- Tapa -->
+        <button class="libro-tapa" id="abrir" aria-label="Abrir la invitación">
+          <span class="tapa-frente">
+            <span class="tapa-marco">
+              <svg class="esq e1"><use href="#esquina"/></svg>
+              <svg class="esq e2"><use href="#esquina"/></svg>
+              <svg class="esq e3"><use href="#esquina"/></svg>
+              <svg class="esq e4"><use href="#esquina"/></svg>
+            </span>
+            <svg class="tapa-antifaz"><use href="#antifaz"/></svg>
+            <span class="tapa-nombre">Scarlett</span>
+            <svg class="tapa-sep"><use href="#separador"/></svg>
+            <span class="tapa-xv">XV años</span>
+            <span class="tapa-boton">Abrir aquí</span>
+          </span>
+          <span class="tapa-dorso"></span>
+        </button>
+      </div>
+
+      <!-- Antifaz colgante -->
+      <div class="colgante" aria-hidden="true">
+        <span class="cinta"></span>
+        <span class="lazo"></span>
+        <svg class="colgante-antifaz"><use href="#antifaz"/></svg>
+      </div>
+
+      <!-- Tarjeta con el nombre del invitado -->
+      <div class="tarjeta" aria-live="polite">
+        <span class="tarjeta-cordon"></span>
+        <div class="tarjeta-cuerpo">
+          <span class="tarjeta-para">Para</span>
+          <span class="tarjeta-nombre" id="tarjetaNombre">Invitado especial</span>
+          <span class="tarjeta-pases" id="tarjetaPases"></span>
+          <span class="lacre">S</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="portada-pista">Toca el libro para abrir</p>
+  </section>
+
+  <!-- ============ INVITACIÓN ============ -->
+  <main id="invitacion" hidden>
+
+    <!-- 1. Bienvenida -->
+    <section class="seccion bienvenida">
+      <div class="arco">
+        <svg viewBox="0 0 260 360" class="arco-svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="oroSil" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F3DD9B"/><stop offset=".5" stop-color="#C9A24A"/><stop offset="1" stop-color="#8E6A24"/>
+            </linearGradient>
+            <radialGradient id="halo" cx=".5" cy=".38" r=".6">
+              <stop offset="0" stop-color="#C9A24A" stop-opacity=".28"/><stop offset="1" stop-color="#C9A24A" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <path d="M20 350 V130 C20 60 70 14 130 14 C190 14 240 60 240 130 V350" fill="url(#halo)" stroke="url(#oro)" stroke-width="2"/>
+          <path d="M32 350 V132 C32 70 76 26 130 26 C184 26 228 70 228 132 V350" fill="none" stroke="url(#oro)" stroke-width=".8"/>
+          <g fill="none" stroke="url(#oro)" stroke-width="1.4" stroke-linecap="round">
+            <path d="M130 14 c-8 -10 -22 -8 -22 2 c0 6 8 8 10 3"/><path d="M130 14 c8 -10 22 -8 22 2 c0 6 -8 8 -10 3"/>
+            <path d="M42 80 c-14 -2 -22 10 -14 18 c5 4 11 0 8 -5"/><path d="M218 80 c14 -2 22 10 14 18 c-5 4 -11 0 -8 -5"/>
+          </g>
+          <circle cx="130" cy="8" r="3" fill="url(#oro)"/>
+          <!-- Silueta: chica con vestido de gala y antifaz -->
+          <g fill="url(#oroSil)">
+            <path d="M118 74 c-6 -14 4 -28 16 -26 c10 2 16 12 12 24 c-2 -6 -6 -10 -12 -10 c-6 0 -12 4 -16 12z"/>
+            <ellipse cx="130" cy="78" rx="12" ry="14"/>
+            <path d="M118 66 c-4 -4 -10 -2 -10 4 c2 4 8 4 10 0z"/>
+            <path d="M125 90 h10 l1 8 h-12z"/>
+            <path d="M108 104 c6 -6 14 -6 22 -6 c8 0 16 0 22 6 l-6 14 l-6 30 h-20 l-6 -30z"/>
+            <path d="M110 106 c-8 10 -12 24 -10 40 c1 6 5 6 6 0 c1 -12 4 -24 10 -32z"/>
+            <path d="M150 106 c8 10 12 24 10 40 c-1 6 -5 6 -6 0 c-1 -12 -4 -24 -10 -32z"/>
+            <path d="M120 148 h20 c22 30 50 90 64 160 c-12 10 -40 18 -74 18 c-34 0 -62 -8 -74 -18 c14 -70 42 -130 64 -160z"/>
+          </g>
+          <g fill="none" stroke="#120A0B" stroke-width="1.2" opacity=".45">
+            <path d="M120 160 c-14 40 -26 90 -30 140"/><path d="M140 160 c14 40 26 90 30 140"/>
+            <path d="M130 156 v168"/>
+            <path d="M58 300 c10 8 24 10 36 4 c12 8 24 8 36 0 c12 8 24 8 36 0 c12 6 26 4 36 -4"/>
+          </g>
+          <path d="M117 76 c3 -4 8 -4 11 -1 c1 1 3 1 4 0 c3 -3 8 -3 11 1 c-3 5 -9 6 -13 2 c-4 4 -10 3 -13 -2z" fill="#6B0F1A"/>
+        </svg>
+      </div>
+      <h1 class="gotica nombre-grande">Scarlett</h1>
+      <p class="subtitulo">XV años</p>
+    </section>
+
+    <!-- 2. Frase de apertura -->
+    <section class="seccion frase">
+      <svg class="sep"><use href="#separador"/></svg>
+      <blockquote data-texto="fraseApertura"></blockquote>
+      <svg class="sep"><use href="#separador"/></svg>
+    </section>
+
+    <!-- 3. Padres -->
+    <section class="seccion padres tarjeta-seccion">
+      <svg class="esq e1"><use href="#esquina"/></svg><svg class="esq e2"><use href="#esquina"/></svg>
+      <svg class="esq e3"><use href="#esquina"/></svg><svg class="esq e4"><use href="#esquina"/></svg>
+      <p class="etiqueta">Sus padres</p>
+      <p class="gotica nombre-padre" data-texto="madre"></p>
+      <p class="y">&amp;</p>
+      <p class="gotica nombre-padre" data-texto="padre"></p>
+      <p class="texto" data-texto="invitacion"></p>
+      <p class="gotica nombre-completo" data-texto="quinceanera"></p>
+    </section>
+
+    <!-- 4. Fecha y cuenta regresiva -->
+    <section class="seccion fecha">
+      <p class="etiqueta">Reserva la fecha</p>
+      <p class="fecha-grande" data-texto="fechaTexto"></p>
+      <div class="cuenta" id="cuenta">
+        <div><span id="cDias">--</span><small>días</small></div>
+        <div><span id="cHoras">--</span><small>horas</small></div>
+        <div><span id="cMin">--</span><small>min</small></div>
+        <div><span id="cSeg">--</span><small>seg</small></div>
+      </div>
+      <p class="cuenta-fin" id="cuentaFin" hidden>¡La fiesta ha comenzado!</p>
+    </section>
+
+    <!-- 5. Hora y lugar -->
+    <section class="seccion lugar">
+      <svg class="icono" viewBox="0 0 48 64" aria-hidden="true">
+        <path d="M24 4 c3 6 6 9 6 14 a6 6 0 0 1 -12 0 c0 -5 3 -8 6 -14z" fill="url(#oro)"/>
+        <rect x="16" y="26" width="16" height="34" rx="2" fill="#F5EBDD"/>
+        <path d="M16 30 h16" stroke="#C9A24A" stroke-width="1"/>
+      </svg>
+      <p class="etiqueta">Hora y lugar</p>
+      <p class="hora" data-texto="hora"></p>
+      <p class="lugar-nombre" data-texto="lugar"></p>
+      <p class="texto" data-texto="ciudad"></p>
+      <a class="boton" id="botonMapa" target="_blank" rel="noopener">Ver ubicación</a>
+    </section>
+
+    <!-- 6. Itinerario -->
+    <section class="seccion itinerario">
+      <p class="etiqueta">Itinerario</p>
+      <h2 class="gotica titulo">La noche</h2>
+      <ol class="linea" id="itinerario"></ol>
+    </section>
+
+    <!-- 7. Vestimenta -->
+    <section class="seccion vestimenta tarjeta-seccion">
+      <svg class="esq e1"><use href="#esquina"/></svg><svg class="esq e2"><use href="#esquina"/></svg>
+      <svg class="esq e3"><use href="#esquina"/></svg><svg class="esq e4"><use href="#esquina"/></svg>
+      <p class="etiqueta">Código de vestimenta</p>
+      <p class="gotica titulo" data-texto="vestimenta"></p>
+      <svg class="icono-antifaz"><use href="#antifaz"/></svg>
+      <p class="texto" data-texto="vestimentaNota"></p>
+    </section>
+
+    <!-- 8. Fotos -->
+    <section class="seccion fotos">
+      <svg class="icono" viewBox="0 0 64 48" aria-hidden="true">
+        <rect x="4" y="10" width="56" height="34" rx="4" fill="none" stroke="url(#oro)" stroke-width="2"/>
+        <path d="M22 10 l4 -6 h12 l4 6" fill="none" stroke="url(#oro)" stroke-width="2"/>
+        <circle cx="32" cy="27" r="10" fill="none" stroke="url(#oro)" stroke-width="2"/>
+        <circle cx="32" cy="27" r="4" fill="url(#oro)"/>
+      </svg>
+      <p class="etiqueta">Comparte tus fotos</p>
+      <p class="texto" data-texto="fotosTexto"></p>
+      <a class="boton" id="botonAlbum" target="_blank" rel="noopener">Subir mis fotos</a>
+    </section>
+
+    <!-- 9. Cierre -->
+    <section class="seccion cierre">
+      <svg class="sep"><use href="#separador"/></svg>
+      <p class="texto cierre-texto" data-texto="cierre"></p>
+      <p class="despedida" data-texto="despedida"></p>
+      <p class="gotica firma">Scarlett</p>
+      <svg class="icono-antifaz pequeno"><use href="#antifaz"/></svg>
+    </section>
+  </main>
+
+  <button class="musica" id="musica" aria-label="Pausar música" hidden>
+    <svg viewBox="0 0 24 24" class="ico-on"><path d="M9 18V6l11-2v12" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6.5" cy="18" r="2.6" fill="currentColor"/><circle cx="17.5" cy="16" r="2.6" fill="currentColor"/></svg>
+    <svg viewBox="0 0 24 24" class="ico-off"><path d="M9 18V6l11-2v12" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="6.5" cy="18" r="2.6" fill="currentColor"/><circle cx="17.5" cy="16" r="2.6" fill="currentColor"/><path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+
+  <audio id="audio" src="assets/musica.mp3" preload="auto" loop></audio>
+  <script src="script.js"></script>
+</body>
+</html>
