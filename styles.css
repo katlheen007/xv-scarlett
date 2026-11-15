@@ -9,7 +9,7 @@
   --negro: #120A0B;
   --azul: #14213D;
   --marfil: #F5EBDD;
-  --gotica: "UnifrakturMaguntia", "Old English Text MT", serif;
+  --gotica: "Grenze Gotisch", "Old English Text MT", serif;
   --serif: "Cormorant Garamond", Garamond, Georgia, serif;
 }
 
@@ -33,7 +33,7 @@ body.cerrado { overflow: hidden; height: 100svh; }
 
 #particulas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
-.gotica { font-family: var(--gotica); font-weight: 400; line-height: 1.1; }
+.gotica { font-family: var(--gotica); font-weight: 500; line-height: 1.1; }
 .oro-texto, .gotica, .etiqueta, .fecha-grande, .hora {
   background: linear-gradient(180deg, var(--dorado-claro), var(--dorado) 55%, #9C7629);
   -webkit-background-clip: text; background-clip: text; color: transparent;
