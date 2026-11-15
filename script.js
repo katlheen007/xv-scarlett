@@ -10,15 +10,6 @@ const CONFIG = {
   mapa: "https://maps.app.goo.gl/uKtrRXvYjokXnkhy9",
   album: "https://photos.app.goo.gl/p58cJnuvvJHUD8wDA",
 
-  // Itinerario: deja la hora vacía ("") si aún no la sabes
-  itinerario: [
-    { hora: "17:00", texto: "Recepción de invitados" },
-    { hora: "", texto: "Ingreso de la quinceañera" },
-    { hora: "", texto: "Vals" },
-    { hora: "", texto: "Brindis" },
-    { hora: "", texto: "Cena" },
-    { hora: "", texto: "Baile" },
-  ],
 
   // Textos
   textos: {
@@ -64,16 +55,6 @@ const CONFIG = {
   const album = $("#botonAlbum");
   if (CONFIG.album) album.href = CONFIG.album;
   else { album.textContent = "Álbum disponible muy pronto"; album.classList.add("inactivo"); }
-
-  // --- Itinerario ---
-  const lista = $("#itinerario");
-  CONFIG.itinerario.forEach(({ hora, texto }) => {
-    const li = document.createElement("li");
-    li.innerHTML = '<span class="h"></span><span class="punto"></span><span class="t"></span>';
-    li.querySelector(".h").textContent = hora || "";
-    li.querySelector(".t").textContent = texto;
-    lista.appendChild(li);
-  });
 
   // --- Invitado (?i=codigo) ---
   const codigo = (new URLSearchParams(location.search).get("i") || "").trim().toLowerCase();
