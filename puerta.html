@@ -153,13 +153,17 @@
         $("#rCuenta").textContent = "";
         $("#rBotones").hidden = true; $("#corregir").hidden = true;
       } else {
-        const lim = inv.limite || 0, d = dentro(h), faltan = Math.max(lim - d, 0);
+        const lim = inv.limite || 0, d = dentro(h);
         const familia = !inv.pases;
+        // Familias: el número es solo un estimado, nunca se bloquea
+        const faltan = familia ? Infinity : Math.max(lim - d, 0);
         box.classList.add(faltan > 0 ? "ok" : "lleno");
         $("#rIcono").textContent = faltan > 0 ? "✅" : "⛔";
         $("#rNombre").textContent = nombreDe(inv);
-        $("#rDetalle").textContent = (familia ? "Familia · límite en puerta: " : "Invitación para ") + lim + (lim === 1 ? " persona" : " personas");
-        $("#rCuenta").textContent = faltan > 0 ? `Han entrado ${d} de ${lim}` : `YA ENTRARON ${d} de ${lim}`;
+        $("#rDetalle").textContent = familia ? `Familia · estimado: ${lim} ${lim === 1 ? "persona" : "personas"}`
+                                             : `Invitación para ${lim} ${lim === 1 ? "persona" : "personas"}`;
+        $("#rCuenta").textContent = familia ? `Han entrado ${d} (estimado ${lim})${d > lim ? " · más de lo previsto, sin problema" : ""}`
+                                            : (faltan > 0 ? `Han entrado ${d} de ${lim}` : `YA ENTRARON ${d} de ${lim}`);
         $("#rBotones").hidden = faltan === 0; $("#corregir").hidden = d === 0;
         // Invitación normal: por defecto entran todos los que faltan. Familia: de uno en uno (llegan por partes).
         cantidad = familia ? 1 : faltan;
@@ -172,7 +176,8 @@
     function registrar(n) {
       const inv = invitados[actual]; if (!inv) return;
       const lim = inv.limite || 0;
-      const nuevo = Math.min(Math.max(dentro(actual) + n, 0), lim);
+      const nuevo = Math.max(dentro(actual) + n, 0);
+      if (inv.pases && nuevo > lim) return;
       const real = nuevo - dentro(actual);
       if (!real) return;
       estado.dentro[actual] = nuevo;
@@ -180,7 +185,7 @@
       guardar(); totales(); historial(); mostrar(actual);
     }
     let cantidad = 1;
-    const faltanDe = (h) => Math.max((invitados[h].limite || 0) - dentro(h), 0);
+    const faltanDe = (h) => !invitados[h].pases ? Infinity : Math.max((invitados[h].limite || 0) - dentro(h), 0);
     function pintarCantidad(faltan) {
       cantidad = Math.min(Math.max(cantidad, 1), faltan);
       $("#cantidad").textContent = cantidad;
@@ -237,7 +242,7 @@
         const li = document.createElement("li");
         li.innerHTML = "<span></span><span></span>";
         li.children[0].textContent = inv.nombre;
-        li.children[1].textContent = `${dentro(h)} / ${inv.limite}`;
+        li.children[1].textContent = inv.pases ? `${dentro(h)} / ${inv.limite}` : `${dentro(h)} · ~${inv.limite}`;
         li.onclick = () => { escaneando = false; ul.innerHTML = ""; e.target.value = ""; mostrar(h); };
         ul.appendChild(li);
       });
@@ -245,7 +250,7 @@
 
     // --- Exportar ---
     $("#exportar").onclick = () => {
-      const filas = [["Nombre", "Límite", "Han entrado"]];
+      const filas = [["Nombre", "Límite (familias: estimado)", "Han entrado"]];
       for (const [h, inv] of Object.entries(invitados)) filas.push([nombreDe(inv), inv.limite, dentro(h)]);
       filas.push([], ["Hora", "Nombre", "Movimiento"]);
       estado.log.forEach((r) => filas.push([r.hora, r.nombre, r.n]));

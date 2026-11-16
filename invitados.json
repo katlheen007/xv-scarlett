@@ -130,7 +130,7 @@
   "pases": 2,
   "limite": 2
  },
- "3e192d3946bf496023f6a248": {
+ "56a4f0f5dd36af02aa8435f3": {
   "nombre": "Camila",
   "pases": 2,
   "limite": 2
@@ -150,7 +150,7 @@
   "pases": 2,
   "limite": 2
  },
- "0045ad174d43f03822814d38": {
+ "e34dfffc4482bc41ebb7ff7b": {
   "nombre": "Camila",
   "pases": 2,
   "limite": 2
@@ -387,78 +387,108 @@
  },
  "f828c47cce4c4c7fc58d9e6a": {
   "nombre": "Olver",
-  "pases": 1,
-  "limite": 1
- },
- "66840525ae9778a678305da6": {
-  "nombre": "Familia Orozco",
-  "pases": 0,
-  "limite": 20
- },
- "65ea74f234ad1239763b5699": {
-  "nombre": "Familia Yahira",
-  "pases": 0,
+  "pases": 3,
   "limite": 3
  },
- "b40badd1cfe28ffca2981253": {
-  "nombre": "Familia Wilson",
+ "2968a25ef18328154e4e0e3f": {
+  "nombre": "Sra. Cecilia Orozco y flia.",
+  "pases": 0,
+  "limite": 7
+ },
+ "1e17f0dbab459cb84414df4b": {
+  "nombre": "Sra. Ivonne Orozco y flia.",
   "pases": 0,
   "limite": 5
  },
- "af8c5dab4a27a2547c29eab5": {
-  "nombre": "Familia Quique",
-  "pases": 0,
-  "limite": 3
- },
- "ba1bd242782cfd84b724acfc": {
-  "nombre": "Familia Carolay",
-  "pases": 0,
-  "limite": 8
- },
- "eb9545dd471822e759d3e36a": {
-  "nombre": "Familia Tío Willy",
-  "pases": 0,
-  "limite": 3
- },
- "caa7533789e5095c041d096b": {
-  "nombre": "Familia Roger",
-  "pases": 0,
-  "limite": 3
- },
- "d4be7201bfcf02c5025d62c7": {
-  "nombre": "Familia Judith",
-  "pases": 0,
-  "limite": 3
- },
- "25c89b6cd7f0a2d109095c03": {
-  "nombre": "Familia Nino",
+ "203c293c10e3f67ad9006721": {
+  "nombre": "Sra. Daniela Orozco y flia.",
   "pases": 0,
   "limite": 2
  },
- "c8bbb177fd67c3fdba5c2f82": {
-  "nombre": "Familia Gladys",
-  "pases": 0,
-  "limite": 5
- },
- "f75348e976fa6e6637a9bcfd": {
-  "nombre": "Familia Jacklein",
+ "4b227b54434c49e2ddd01413": {
+  "nombre": "Sr. Daniel Orozco y flia.",
   "pases": 0,
   "limite": 4
  },
- "19f91e1912625cfe6b27e92d": {
-  "nombre": "Adita",
+ "87efdc785489bb3c69bb408c": {
+  "nombre": "Ricardo Orozco",
   "pases": 0,
-  "limite": 1
+  "limite": 2
  },
- "5f695d0daf8756510a3e385f": {
-  "nombre": "Familia Ronald",
+ "f9df21067e2319e3905e5121": {
+  "nombre": "Guille",
   "pases": 0,
-  "limite": 6
+  "limite": 2
  },
- "144b3a991b250b3d7c3115af": {
-  "nombre": "Familia Flores",
+ "5fb74d1c25560460919b6dbf": {
+  "nombre": "Sr. Daniel y flia.",
+  "pases": 0,
+  "limite": 4
+ },
+ "efda20c56cbaf8c5826bde53": {
+  "nombre": "Yahira Ortiz y pareja",
+  "pases": 0,
+  "limite": 2
+ },
+ "4f6ab5e148499cd643eca786": {
+  "nombre": "Sr. Wilson Ramil y flia.",
   "pases": 0,
   "limite": 7
+ },
+ "be3f2e157ab504024728a42a": {
+  "nombre": "Sr. Willy Condemayta y flia.",
+  "pases": 0,
+  "limite": 5
+ },
+ "8e6456ee3ac439c667dce6d1": {
+  "nombre": "Sr. Roger Condemayta y flia.",
+  "pases": 0,
+  "limite": 3
+ },
+ "a155d10df7a3d222e896157d": {
+  "nombre": "Sr. Ernesto Ramil y flia.",
+  "pases": 0,
+  "limite": 3
+ },
+ "959b8f44074dbca25b5c634a": {
+  "nombre": "Sra. Ninoska Cayoja y flia.",
+  "pases": 0,
+  "limite": 3
+ },
+ "24db3527c69995971f9c8ca3": {
+  "nombre": "Sr. Wilfredo Ramil y flia.",
+  "pases": 0,
+  "limite": 5
+ },
+ "2af3c4870dcb7be6d50d650b": {
+  "nombre": "Sr. Wilfredo Ramil y esposa",
+  "pases": 0,
+  "limite": 2
+ },
+ "42f8080d86b659f93518d3ae": {
+  "nombre": "Sra. Maria y flia.",
+  "pases": 0,
+  "limite": 3
+ },
+ "ff3237a55d8a3818d59f12d0": {
+  "nombre": "Sra. Clara y flia.",
+  "pases": 0,
+  "limite": 3
+ },
+ "f0237879cef2775d43ea4ace": {
+  "nombre": "Carmen y Juan Zegarra",
+  "pases": 0,
+  "limite": 2
+ },
+ "f239ce92f8afc7d94e1f4d5d": {
+  "nombre": "Sra. Carmen Quispe y flia.",
+  "pases": 0,
+  "limite": 3
+ },
+ "a84048dc396b26e33c2e2243": {
+  "nombre": "Sra. Judith y flia.",
+  "pases": 0,
+  "limite": 4
  },
  "85a54869da16aed132f066df": {
   "nombre": "",
