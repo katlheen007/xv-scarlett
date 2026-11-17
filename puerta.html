@@ -160,7 +160,7 @@
         box.classList.add(faltan > 0 ? "ok" : "lleno");
         $("#rIcono").textContent = faltan > 0 ? "✅" : "⛔";
         $("#rNombre").textContent = nombreDe(inv);
-        $("#rDetalle").textContent = familia ? `Familia · estimado: ${lim} ${lim === 1 ? "persona" : "personas"}`
+        $("#rDetalle").textContent = familia ? `${inv.especial ? "Invitado especial" : "Familia"} · estimado: ${lim} ${lim === 1 ? "persona" : "personas"}`
                                              : `Invitación para ${lim} ${lim === 1 ? "persona" : "personas"}`;
         $("#rCuenta").textContent = familia ? `Han entrado ${d} (estimado ${lim})${d > lim ? " · más de lo previsto, sin problema" : ""}`
                                             : (faltan > 0 ? `Han entrado ${d} de ${lim}` : `YA ENTRARON ${d} de ${lim}`);

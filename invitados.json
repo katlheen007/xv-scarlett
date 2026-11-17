@@ -515,10 +515,71 @@
   "pases": 0,
   "limite": 3
  },
+ "0ba79af93c379be86e7f9559": {
+  "nombre": "Invitado especial: Sr. Juvenal Siles",
+  "pases": 0,
+  "limite": 2,
+  "especial": true
+ },
+ "fbf38ad0701852820ade0143": {
+  "nombre": "Invitado especial: Patricia Iglesias y flia.",
+  "pases": 0,
+  "limite": 4,
+  "especial": true
+ },
+ "26839f6fe252cd5c20627fc0": {
+  "nombre": "Invitado especial: Sr. Oscar León",
+  "pases": 0,
+  "limite": 2,
+  "especial": true
+ },
+ "49d4f2d0057fac9baeda1e0a": {
+  "nombre": "Invitado especial: Dr. Jaive Flores",
+  "pases": 0,
+  "limite": 2,
+  "especial": true
+ },
+ "1f81df87b00f13f738becde3": {
+  "nombre": "Invitado especial: Sra. Cristina Callisaya",
+  "pases": 0,
+  "limite": 2,
+  "especial": true
+ },
  "85a54869da16aed132f066df": {
+  "nombre": "Invitado especial: Jorge Nogales",
+  "pases": 0,
+  "limite": 2,
+  "especial": true
+ },
+ "1d1466cf841dd1fa72883baf": {
   "nombre": "",
-  "pases": 1,
-  "limite": 1
+  "pases": 0,
+  "limite": 2,
+  "especial": true
+ },
+ "d49678023667e7f79812848e": {
+  "nombre": "",
+  "pases": 0,
+  "limite": 2,
+  "especial": true
+ },
+ "1071d5840fa0bcbdf853a242": {
+  "nombre": "",
+  "pases": 0,
+  "limite": 2,
+  "especial": true
+ },
+ "e95b448667e8cf5a45b4918b": {
+  "nombre": "",
+  "pases": 0,
+  "limite": 2,
+  "especial": true
+ },
+ "6d1a3bc9e408987037ccef56": {
+  "nombre": "",
+  "pases": 0,
+  "limite": 2,
+  "especial": true
  },
  "7408791c0e1d3cc05ab1538b": {
   "nombre": "",
