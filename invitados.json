@@ -280,6 +280,11 @@
   "pases": 2,
   "limite": 2
  },
+ "56ee23571a3e54ed2d941734": {
+  "nombre": "Arat",
+  "pases": 2,
+  "limite": 2
+ },
  "1b0bcf9a19c24f8e1f6a54d2": {
   "nombre": "Nicol Maylin Alanoca Vargas",
   "pases": 2,
@@ -517,6 +522,16 @@
  },
  "55773bf1d9edddd3fe6723d1": {
   "nombre": "Sr. Almir Sosa",
+  "pases": 0,
+  "limite": 1
+ },
+ "b89087746856b316efd47103": {
+  "nombre": "Sr. Roger Romero y esposa",
+  "pases": 0,
+  "limite": 2
+ },
+ "9158aa5af8fa1d07ec27a0c6": {
+  "nombre": "Sr. Kevin Fernandez",
   "pases": 0,
   "limite": 1
  },
