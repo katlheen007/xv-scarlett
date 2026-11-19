@@ -113,6 +113,18 @@
   <div class="seccion">
     <button class="b-gris ancho" id="exportar">⬇️ Descargar registro (CSV)</button>
     <p class="aviso">El registro se guarda en este móvil. Usa siempre este mismo móvil y navegador, y no borres los datos del navegador hasta que acabe la fiesta.</p>
+    <button class="b-gris ancho" id="reiniciar" style="margin-top:18px">🧹 Empezar de cero (borrar pruebas)</button>
+    <div id="confirmarBorrado" class="resultado lleno" hidden>
+      <div class="r-icono">⚠️</div>
+      <div class="r-detalle" style="margin:6px 0 12px">¿Seguro que quieres borrar <b>todas</b> las entradas de este móvil? No se puede deshacer.</div>
+      <input id="pinBorrado" type="password" inputmode="numeric" maxlength="4" placeholder="PIN de 4 dígitos" autocomplete="off" style="text-align:center;letter-spacing:.4em;font-size:1.3rem">
+      <div class="fila">
+        <button class="b-gris" id="cancelarBorrado">Cancelar</button>
+        <button class="b-rojo" id="okBorrado">Sí, borrar todo</button>
+      </div>
+      <div class="estado-aviso error" id="errorBorrado"></div>
+    </div>
+    <p class="aviso">Solo antes de la fiesta: borra todas las entradas de este móvil. Pide confirmación y PIN.</p>
   </div>
 
   <!-- Ayuda: avisa a la organizadora (notificación ntfy y/o WhatsApp) -->
@@ -142,7 +154,9 @@
   <script>
   (function () {
     const $ = (s) => document.querySelector(s);
-    const CLAVE = "xv-scarlett-puerta";
+    // v2 (2026-11-18): registro nuevo y vacío; lo de "xv-scarlett-puerta" eran pruebas.
+    const CLAVE = "xv-scarlett-puerta-v2";
+    try { localStorage.removeItem("xv-scarlett-puerta"); } catch (e) {}
     let invitados = {};          // huella → {nombre, pases, limite}
     let estado = { dentro: {}, log: [] };
     try { estado = JSON.parse(localStorage.getItem(CLAVE)) || estado; } catch (e) {}
@@ -285,6 +299,25 @@
     });
 
     // --- Exportar ---
+    // --- Empezar de cero: confirmación + PIN (solo se guarda su huella) ---
+    const PIN_HUELLA = "e9cbbb2845271cd66ce073a4";
+    const cajaBorrado = $("#confirmarBorrado"), pin = $("#pinBorrado"), botonReiniciar = $("#reiniciar");
+    const cerrarBorrado = () => { cajaBorrado.hidden = true; botonReiniciar.hidden = false; pin.value = ""; $("#errorBorrado").textContent = ""; };
+    botonReiniciar.onclick = () => { botonReiniciar.hidden = true; cajaBorrado.hidden = false; pin.focus(); };
+    $("#cancelarBorrado").onclick = cerrarBorrado;
+    $("#okBorrado").onclick = async () => {
+      if ((await huella("xv-pin:" + pin.value.trim())) !== PIN_HUELLA) {
+        $("#errorBorrado").textContent = "PIN incorrecto. No se borró nada.";
+        pin.value = ""; if (navigator.vibrate) navigator.vibrate(200);
+        return;
+      }
+      estado = { dentro: {}, log: [] }; guardar(); totales(); historial();
+      $("#resultado").hidden = true; actual = null;
+      cerrarBorrado();
+      botonReiniciar.textContent = "✅ Registro vacío";
+      setTimeout(() => { botonReiniciar.textContent = "🧹 Empezar de cero (borrar pruebas)"; }, 2500);
+    };
+
     $("#exportar").onclick = () => {
       const filas = [["Nombre", "Límite (familias: estimado)", "Han entrado"]];
       for (const [h, inv] of Object.entries(invitados)) filas.push([nombreDe(inv), inv.limite, dentro(h)]);
